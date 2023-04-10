@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Digital Newspaper</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		.page-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100vh;
+			width: 100vw;
+			overflow: hidden;
+			perspective: 1200px;
+			transform-style: preserve-3d;
+			transform: rotateY(0deg);
+			transition: all 1s;
+		}
+
+		.page {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100vh;
+			width: 100vw;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			transform-style: preserve-3d;
+			transform-origin: right center;
+			backface-visibility: hidden;
+			box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+		}
+
+		.page.next {
+			transform: rotateY(-179deg);
+		}
+
+		.button-container {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 1;
+		}
+
+		.button {
+			padding: 10px 20px;
+			background-color: #000;
+			color: #fff;
+			font-size: 16px;
+			cursor: pointer;
+			border: none;
+			border-radius: 5px;
+			margin: 0 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="page-container">
+		<div class="page current" style="background-image: url('page1.jpg');"></div>
+		<div class="page next" style="background-image: url('page2.jpg');"></div>
+	</div>
+	<div class="button-container">
+		<button class="button" onclick="turnPage()">Next Page</button>
+	</div>
+
+	<script>
+		let currentPage = 1;
+
+		function turnPage() {
+			if (currentPage === 1) {
+				document.querySelector('.page.current').classList.add('next');
+				document.querySelector('.page.next').classList.add('current');
+				document.querySelector('.page.next').classList.remove('next');
+				currentPage = 2;
+			} else {
+				document.querySelector('.page.current').classList.remove('next');
+				document.querySelector('.page.next').classList.remove('current');
+				document.querySelector('.page.current').classList.add('current');
+				currentPage = 1;
+			}
+		}
+	</script>
+</body>
+</html>
